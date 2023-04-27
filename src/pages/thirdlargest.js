@@ -6,6 +6,7 @@ function ThirdLargest() {
   const [thirdLargest_, setThirdLargest] = useState(null);
   const [thirdLargestNaive, setThirdLargestNaive] = useState(null);
   const [useNaive, setUseNaive] = useState(false);
+  const [ timeTaken, setTimeTaken] =useState(null);
 
   const findThirdLargest = (arr) => {
     let first = null, second = null, third = null;
@@ -59,6 +60,7 @@ function ThirdLargest() {
     const sortedArr = [...arr].sort((a, b) => b - a);
     let currentStep = 1;
     const steps = [];
+    const startTime = performance.now();
   
     if (useNaive) {
       steps.push({
@@ -86,11 +88,12 @@ function ThirdLargest() {
   
       setSteps(steps);
       setThirdLargestNaive(thirdLargestNaive);
+      const endTime = performance.now();
+      setTimeTaken(endTime - startTime);
   
     } else {
-
       const thirdLargest_ = findThirdLargest(arr);
-
+  
       steps.push({
         step: currentStep++,
         explanation: `Initialize the first, second, and third largest elements to null.`
@@ -135,20 +138,10 @@ function ThirdLargest() {
         }
       });
   
-      if (thirdLargest !== null) {
-        steps.push({
-          step: currentStep++,
-          explanation: `The third largest element in the array ${JSON.stringify(arr)} is ${thirdLargest}.`
-        });
-      } else {
-        steps.push({
-          step: currentStep++,
-          explanation: `There are less than 3 unique elements in the array ${JSON.stringify(arr)}, so we cannot find the third largest element.`
-        });
-      }
-  
       setSteps(steps);
       setThirdLargest(thirdLargest_);
+      const endTime = performance.now();
+      setTimeTaken(endTime - startTime).toFixed(2);
     }
   };
   
@@ -185,6 +178,7 @@ function ThirdLargest() {
       <div className="title">Third Largest Element</div>
       <p>Algorithm: 3rd Max in Array: {useNaive ? "Naive" : "Good Approach"}</p>
       <p>Time Complexity: {useNaive ? "O(n log n)" : "O(n)"}</p> 
+      <p>Run Time: {timeTaken} ms</p> 
       <p>Enter the values for the array:</p>
       {arr.map((value, i) => (
         <div key={i}>
