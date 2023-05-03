@@ -178,7 +178,7 @@ function ThirdLargest() {
       <div className="title">Third Largest Element</div>
       <p>Algorithm: 3rd Max in Array: {useNaive ? "Naive" : "Good Approach"}</p>
       <p>Time Complexity: {useNaive ? "O(n log n)" : "O(n)"}</p> 
-      <p>Run Time: {timeTaken * 1000} msec</p> 
+      <p>Run Time: {timeTaken * 1000} μs </p> 
       <p>Enter the values for the array:</p>
       {arr.map((value, i) => (
         <div key={i}>
