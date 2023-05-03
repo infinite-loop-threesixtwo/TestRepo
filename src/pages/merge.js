@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 function Merge() {
+  const [ timeTaken, setTimeTaken] =useState(null);
+
   //This is hacky since it calls the if statement constantly but it works
   useEffect(() => {
     if(!document.getElementsByClassName('bar').length) generateArray();
@@ -23,8 +25,11 @@ function Merge() {
   
   // Click handler, so we can pass array
   const handleMergeSort = async () => {
+    const start = performance.now(); // capture start time
     const sortedArray = await mergeSort(array);
     setArray(sortedArray);
+    const end = performance.now(); // capture end time
+    setTimeTaken(end - start); // set timeTaken
   };
   
   // Merge Sort Algorithm
@@ -80,6 +85,7 @@ function Merge() {
       <div className="description">
         Merge sort is an efficient, general-purpose, and comparison-based sorting algorithm. It works on the principle of dividing the array into many halves and merging them in a sorted manner. <br></br>
         <b>Time complexity: O(N log N)</b>
+        <p>Run Time: {timeTaken * 1000} msec </p>
       </div>
       <div className="bars-container">
         {array.map((value, index) => (
